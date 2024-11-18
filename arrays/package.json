@@ -1,0 +1,45 @@
+{
+  "name": "learning-dsa-arrays",
+  "version": "1.0.0",
+  "description": "Learning DSA - Arrays",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development tsc-watch --onSuccess \"nodemon ./dist/index.js\" "
+  },
+  "keywords": [
+    "dsa",
+    "arrays",
+    "dynamic arrays",
+    "static arrays"
+  ],
+  "author": "Kene Nnakwue",
+  "license": "ISC",
+  "devDependencies": {
+    "@joi/date": "^2.1.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/compression": "^1.7.2",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.3",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/lodash": "^4.14.196",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.4",
+    "@types/node": "^20.10.5",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.4",
+    "cross-env": "^7.0.3",
+    "jest": "^29.6.2",
+    "nodemon": "^3.1.4",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "tsc": "^2.0.4",
+    "tsc-node": "^0.0.3",
+    "tsc-watch": "^6.2.0"
+  },
+  "dependencies": {
+    "@types/chalk": "^2.2.0",
+    "axios": "^1.6.2"
+  }
+}
