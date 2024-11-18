@@ -1,6 +1,5 @@
 (() => {
-
-    console.log('Learning DSA - Arrays');
+    console.log('\nLearning DSA - Arrays\n');
 
     interface IteratorResult<T> {
         value: T;
@@ -147,4 +146,6 @@
     console.log(newArray.contains(2));
     console.log(newArray.get(0));
     console.log(newArray.size());
+
+    console.log('\nLearning DSA - Arrays\n');
 })();
