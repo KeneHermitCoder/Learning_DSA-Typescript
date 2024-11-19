@@ -127,7 +127,7 @@
 
 
     console.log(`\n
-           |||||       ||||          ||||
+          |||||||      ||||          ||||
         ||||   ||||    ||||          ||||
         ||||   ||||    ||||          ||||
         ||||           ||||          ||||
@@ -136,7 +136,7 @@
                ||||    ||||          ||||
         ||||   ||||    ||||          ||||
         ||||   ||||    ||||||||||    ||||||||||
-           |||||       ||||||||||    ||||||||||
+          |||||||      ||||||||||    ||||||||||
     `);
 
     const sLList = new SinglyLinkedList<number>();
@@ -150,7 +150,7 @@
     console.log('4', (<any>sLList).head.next, '\n');
     console.log('5', (<any>sLList).head.next.prev, '\n');
     sLList.removeFirst();
-    console.log('6', sLList, '\n');
+    console.log('6', sLList, '\n\n\n');
 
 
     class DoubleLinkedList<T> {
