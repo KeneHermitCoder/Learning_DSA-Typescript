@@ -1,31 +1,182 @@
 (() => {
-
-    // Node class to represent a node in the linked list
     // class Node<T extends { toString(): string }> {
-    class Node<T> {
-        public data: T | null;
-        public next: Node<T> | null = null;
-        public prev: Node<T> | null = null;
-
-        constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
-            this.data = data;
-            this.prev = prev;
-            this.next = next;
-        };
-
+    class NodeItem<T> {
+        public data: T | null = null;
+        public prev?: NodeItem<T> | null;
+        public next: NodeItem<T> | null = null;
         // public toString(): string { return this.data.toString(); };
     };
 
+
+    class SinglyLinkedList<T> {
+        private head: NodeItem<T> | null = null;
+        private size: number = 0;
+
+        public Node(data: T): NodeItem<T> {
+            class Node extends NodeItem<T> {
+                constructor(data: T) {
+                    super();
+                    this.data = data;
+                    delete this.prev;
+                    this.next = null;
+                }
+            };
+            return new Node(data);
+        };
+
+        // Add an item to the end of the linked list - O(1)
+        public add(item: T): void {
+            const node = this.Node(item);
+            if (this.head === null) {
+                this.head = node;
+            } else {
+                let current = this.head;
+                while (current.next !== null) {
+                    current = current.next;
+                }
+                current.next = node;
+            }
+            this.size++;
+        };
+
+        // Add an item to the start of the linked list - O(1)
+        public addAtStart(item: T): void {
+            const node = this.Node(item);
+            node.next = this.head;
+            this.head = node;
+            this.size++;
+        };
+
+        // Remove an item from the start of the linked list - O(1)
+        public removeFirst(): T | null {
+            if (this.head === null) {
+                return null;
+            }
+            const data = this.head.data;
+            this.head = this.head.next;
+            this.size--;
+            return data;
+        };
+
+        // Remove an item from the end of the linked list - O(n)
+        public removeLast(): T | null {
+            if (this.head === null) {
+                return null;
+            }
+            if (this.head.next === null) {
+                const data = this.head.data;
+                this.head = null;
+                this.size--;
+                return data;
+            }
+            let current = this.head;
+            while (current.next!.next !== null) {
+                current = current.next as NodeItem<T>;
+            }
+            const data = current.next!.data;
+            current.next = null;
+            this.size--;
+            return data;
+        };
+
+        // Remove an item from the linked list - O(n)
+        public remove(value: T): boolean {
+            if (this.head === null) {
+                return false;
+            }
+            if (this.head.data === value) {
+                this.head = this.head.next;
+                this.size--;
+                return true;
+            }
+            let current = this.head;
+            while (current.next !== null) {
+                if (current.next.data === value) {
+                    current.next = current.next.next;
+                    this.size--;
+                    return true;
+                }
+                current = current.next;
+            }
+            return false;
+        };
+
+        public removeAt(index: number): T | null {
+            if (index < 0 || index >= this.size) throw new Error('Index out of bounds');
+            if (index === 0) return this.removeFirst();
+            if (index === this.size - 1) return this.removeLast();
+
+            let current = this.head;
+            for (let i = 0; i < index - 1; i++) current = current!.next;
+            const data = current!.next!.data;
+            current!.next = current!.next!.next;
+            this.size--;
+            return data;
+        };
+
+        // Get the size of the linked list - O(1)
+        public getSize(): number {
+            return this.size;
+        };
+
+        // Check if the linked list is empty
+        public isEmpty(): boolean {
+            return this.size === 0;
+        }
+    };
+
+
+    console.log(`\n
+           |||||       ||||          ||||
+        ||||   ||||    ||||          ||||
+        ||||   ||||    ||||          ||||
+        ||||           ||||          ||||
+          |||||        ||||          ||||
+            |||||      ||||          ||||
+               ||||    ||||          ||||
+        ||||   ||||    ||||          ||||
+        ||||   ||||    ||||||||||    ||||||||||
+           |||||       ||||||||||    ||||||||||
+    `);
+
+    const sLList = new SinglyLinkedList<number>();
+    sLList.add(1);
+    sLList.addAtStart(2);
+    console.log('1', sLList, '\n');
+    sLList.addAtStart(4);
+    sLList.add(2);
+    console.log('2', sLList, '\n');
+    console.log('3', (<any>sLList).head, '\n');
+    console.log('4', (<any>sLList).head.next, '\n');
+    console.log('5', (<any>sLList).head.next.prev, '\n');
+    sLList.removeFirst();
+    console.log('6', sLList, '\n');
+
+
     class DoubleLinkedList<T> {
         private size: number = 0;
-        private head: Node<T> | null = null;
-        private tail: Node<T> | null = null;
+        private head: NodeItem<T> | null = null;
+        private tail: NodeItem<T> | null = null;
+
+        // Node class to represent a node in the linked list
+        // class Node<T extends { toString(): string }> {
+        public Node(data: T | null = null, prev: NodeItem<T> | null = null, next: NodeItem<T> | null = null) {
+            class Node extends NodeItem<T> {
+                constructor(data: T | null = null, prev: NodeItem<T> | null = null, next: NodeItem<T> | null = null) {
+                    super();
+                    this.data = data;
+                    this.prev = prev;
+                    this.next = next;
+                };
+            };
+            return new Node(data, prev, next);
+        };
 
         // Empty the linked list - O(n)
         public clear(): void {
-            let trav: Node<T> | null = this.head;
+            let trav: NodeItem<T> | null = this.head;
             while (trav !== null) {
-                const next: Node<T> | null = trav.next;
+                const next: NodeItem<T> | null = trav.next;
                 trav.next = null;
                 trav.prev = null;
                 trav.data = null;
@@ -51,10 +202,10 @@
         // Add an item to the start of the linked list - O(1)
         public addAtStart(item: T): void {
             if (this.isEmpty()) {
-                this.head = new Node<T>(item, null, null);
+                this.head = this.Node(item, null, null);
                 this.tail = this.head;
             } else {
-                this.head!.prev = new Node<T>(item, null, this.head);
+                this.head!.prev = this.Node(item, null, this.head);
                 this.head = this.head!.prev;
             };
             this.size++;
@@ -63,20 +214,22 @@
         // Add an item to the end of the linked list - O(1)
         public addAtEnd(item: T): void {
             if (this.isEmpty()) {
-                this.head = new Node<T>(item, null, null);
+                this.head = this.Node(item, null, null);
                 this.tail = this.head;
             } else {
-                this.tail!.next = new Node<T>(item, this.tail, null);
+                this.tail!.next = this.Node(item, this.tail, null);
                 this.tail = this.tail!.next;
             };
             this.size++;
         };
 
+        // Get the first item in the linked list - O(1)
         public peekFirst(): T | null {
             if (this.isEmpty()) throw new Error('List is empty');
             return this.head!.data;
         };
 
+        // Get the last item in the linked list - O(1)
         public peekLast(): T | null {
             if (this.isEmpty()) throw new Error('List is empty');
             return this.tail!.data;
@@ -105,7 +258,7 @@
 
             // Extract the data from the tail and move the tail pointer backwards one node
             const data = this.tail!.data;
-            this.tail = this.tail!.prev;
+            this.tail = this.tail!.prev as NodeItem<T> | null;
             this.size--;
 
             // If the list is now empty, set the head to null
@@ -117,7 +270,7 @@
         };
 
         // Remove an arbitrary node from the linked list - O(1)
-        private removeNode(node: Node<T>): T | null {
+        private removeNode(node: NodeItem<T>): T | null {
             // if the node is the head, remove the head
             if (node === this.head) return this.removeFirst();
             // if the node is the tail, remove the tail
@@ -148,7 +301,7 @@
             // if the index is invlid or the list is empty, throw an error
             if (index < 0 || index >= this.size || this.isEmpty()) throw new Error('Index out of bounds');
 
-            let trav: Node<T> | null = this.head;
+            let trav: NodeItem<T> | null = this.head;
 
             // Start traversing the linked list from the head
             if (index < this.size / 2) {
@@ -158,7 +311,7 @@
                 // Start traversing the linked list from the tail
             } else {
                 let i = this.size - 1;
-                for (trav = this.tail; i !== index; i--) trav = trav!.prev;
+                for (trav = this.tail; i !== index; i--) trav = trav!.prev as NodeItem<T> | null;
             };
 
             return this.removeNode(trav!);
@@ -166,7 +319,7 @@
 
         // Remove a particular value from the linked list - O(n)
         public remove(value: T): boolean {
-            let trav: Node<T> | null = this.head;
+            let trav: NodeItem<T> | null = this.head;
 
             // Provide support for searching for null
             if (value === null)
@@ -190,7 +343,7 @@
 
         // find the index of a particular value in the linked list - O(n)
         public indexOf(value: T): number {
-            let trav: Node<T> | null = this.head;
+            let trav: NodeItem<T> | null = this.head;
             let index = 0;
 
             // Provide support for searching for null
@@ -211,41 +364,52 @@
         };
     };
 
+    console.log(`\n
+        |||||||||       ||||          ||||
+        ||||||||||      ||||          ||||
+        ||||  ||||      ||||          ||||
+        ||||   ||||     ||||          ||||
+        ||||    ||||    ||||          ||||
+        ||||    ||||    ||||          ||||
+        ||||   ||||     ||||          ||||
+        ||||  ||||      ||||          ||||
+        ||||||||||      ||||||||||    ||||||||||
+        |||||||||       ||||||||||    ||||||||||
+    `);
+    const dLList = new DoubleLinkedList<number>();
+    dLList.addAtEnd(2);
+    console.log('1', dLList, '\n');
 
-    const myList = new DoubleLinkedList<number>();
-    myList.addAtEnd(2);
-    console.log('1', myList, '\n');
+    dLList.addAtStart(1);
+    console.log('2', dLList, '\n');
 
-    myList.addAtStart(1);
-    console.log('2', myList, '\n');
+    dLList.clear();
+    console.log('3', dLList, '\n');
 
-    myList.clear();
-    console.log('3', myList, '\n');
+    dLList.addAtEnd(3);
+    dLList.addAtStart(4);
+    console.log('4', dLList.peekLast());
+    console.log(dLList.peekFirst(), '\n');
 
-    myList.addAtEnd(3);
-    myList.addAtStart(4);
-    console.log('4', myList.peekLast());
-    console.log(myList.peekFirst(), '\n');
+    dLList.removeLast();
+    console.log('5', dLList, '\n');
 
-    myList.removeLast();
-    console.log('5', myList, '\n');
+    dLList.removeFirst();
+    console.log('6', dLList, '\n');
 
-    myList.removeFirst();
-    console.log('6', myList, '\n');
+    dLList.addAtEnd(5);
+    dLList.addAtStart({ greeting: 'hello' } as any);
+    dLList.addAtStart(6);
+    dLList.addAtEnd(6);
+    console.log('7', dLList, '\n');
 
-    myList.addAtEnd(5);
-    myList.addAtStart({ greeting: 'hello' } as any);
-    myList.addAtStart(6);
-    myList.addAtEnd(6);
-    console.log('7', myList, '\n');
+    dLList.removeAt(0);
+    console.log('8', dLList, '\n');
 
-    myList.removeAt(0);
-    console.log('8', myList, '\n');
+    dLList.remove(5);
+    console.log('9', dLList, '\n');
 
-    myList.remove(5);
-    console.log('9', myList, '\n');
-
-    console.log(myList.indexOf(6));
-    console.log(myList.contains(6));
+    console.log(dLList.indexOf(6));
+    console.log(dLList.contains(6));
 
 })();
