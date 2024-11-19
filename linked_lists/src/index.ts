@@ -29,6 +29,7 @@
                 trav.next = null;
                 trav.prev = null;
                 trav.data = null;
+                // trav = null;
                 trav = next;
             }
             this.size = 0;
@@ -223,25 +224,26 @@
 
     myList.addAtEnd(3);
     myList.addAtStart(4);
-    console.log('3', myList.peekLast());
+    console.log('4', myList.peekLast());
     console.log(myList.peekFirst(), '\n');
 
     myList.removeLast();
-    console.log('4', myList, '\n');
-
-    myList.removeFirst();
     console.log('5', myList, '\n');
 
-    myList.addAtEnd(5);
-    myList.addAtStart(6);
-    myList.addAtStart(7);
+    myList.removeFirst();
     console.log('6', myList, '\n');
 
-    myList.removeAt(0);
+    myList.addAtEnd(5);
+    myList.addAtStart({ greeting: 'hello' } as any);
+    myList.addAtStart(6);
+    myList.addAtEnd(6);
     console.log('7', myList, '\n');
 
-    myList.remove(5);
+    myList.removeAt(0);
     console.log('8', myList, '\n');
+
+    myList.remove(5);
+    console.log('9', myList, '\n');
 
     console.log(myList.indexOf(6));
     console.log(myList.contains(6));
