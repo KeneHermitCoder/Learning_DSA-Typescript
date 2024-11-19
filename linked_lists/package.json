@@ -1,0 +1,26 @@
+{
+  "name": "learning-dsa-linked-lists",
+  "version": "1.0.0",
+  "description": "Learning DSA - Linked Lists",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc-watch --onSuccess \"nodemon ./dist/index.js\" "
+  },
+  "keywords": [
+    "dsa",
+    "linked lists",
+    "singly linked lists",
+    "doubly linked lists"
+  ],
+  "author": "Kene Nnakwue",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "nodemon": "^3.1.4",
+    "ts-jest": "^29.1.1",
+    "tsc": "^2.0.4",
+    "tsc-node": "^0.0.3",
+    "tsc-watch": "^6.2.0"
+  }
+}
