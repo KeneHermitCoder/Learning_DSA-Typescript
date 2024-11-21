@@ -1,17 +1,19 @@
 {
-  "name": "learning-dsa-arrays",
+  "name": "learning-dsa",
   "version": "1.0.0",
-  "description": "Learning DSA - Arrays",
+  "description": "Learning DSA in Typescript",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc-watch --onSuccess \"nodemon ./dist/index.js\"",
     "start:arrays": "tsc-watch --onSuccess \"nodemon ./dist/arrays.js\"",
+    "start:stacks": "tsc-watch --onSuccess \"nodemon ./dist/stacks.js\"",
     "start:linked_lists": "tsc-watch --onSuccess \"nodemon ./dist/linked_lists.js\""
   },
   "keywords": [
     "dsa",
     "arrays",
+    "stacks",
     "dynamic arrays",
     "static arrays"
   ],
