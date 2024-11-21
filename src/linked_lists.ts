@@ -1,4 +1,4 @@
-(() => {
+const linkedLists = () => {
     // class Node<T extends { toString(): string }> {
     class NodeItem<T> {
         public data: T | null = null;
@@ -413,4 +413,8 @@
     console.log(dLList.indexOf(6));
     console.log(dLList.contains(6));
 
-})();
+};
+
+linkedLists();
+
+export { linkedLists, };
