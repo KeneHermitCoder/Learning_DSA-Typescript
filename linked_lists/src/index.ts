@@ -12,7 +12,7 @@
         private head: NodeItem<T> | null = null;
         private size: number = 0;
 
-        public Node(data: T): NodeItem<T> {
+        private Node(data: T): NodeItem<T> {
             class Node extends NodeItem<T> {
                 constructor(data: T) {
                     super();
@@ -160,7 +160,7 @@
 
         // Node class to represent a node in the linked list
         // class Node<T extends { toString(): string }> {
-        public Node(data: T | null = null, prev: NodeItem<T> | null = null, next: NodeItem<T> | null = null) {
+        private Node(data: T | null = null, prev: NodeItem<T> | null = null, next: NodeItem<T> | null = null) {
             class Node extends NodeItem<T> {
                 constructor(data: T | null = null, prev: NodeItem<T> | null = null, next: NodeItem<T> | null = null) {
                     super();
@@ -363,6 +363,7 @@
             return this.indexOf(value) !== -1;
         };
     };
+
 
     console.log(`\n
         |||||||||       ||||          ||||
