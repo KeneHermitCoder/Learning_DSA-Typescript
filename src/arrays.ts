@@ -1,4 +1,4 @@
-(() => {
+const arrays = () => {
     console.log('\nLearning DSA - Arrays\n');
 
     interface IteratorResult<T> {
@@ -83,9 +83,10 @@
             const item = this.items[rm_index];
             const new_items = new Array(this.length - 1);
             let i = 0, j = 0;
-            for (; i < this.length; i++, j++){
+            for (; i < this.length; i++, j++) {
                 if (i === rm_index) j--;
-                else new_items[i] = this.items[i];}
+                else new_items[i] = this.items[i];
+            }
             this.items = new_items;
             this.capacity = --this.length;
             return item;
@@ -148,4 +149,8 @@
     console.log(newArray.size());
 
     console.log('\nLearning DSA - Arrays\n');
-})();
+};
+
+arrays();
+
+export { arrays, };

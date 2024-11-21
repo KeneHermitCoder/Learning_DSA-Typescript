@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "allowJs": true, // Allow JavaScript files to be compiled
         "incremental": true, // Enable incremental compilation
         "assumeChangesOnlyAffectDirectDependencies": true,
         "removeComments": true,
