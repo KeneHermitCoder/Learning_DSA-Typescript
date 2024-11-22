@@ -21,7 +21,7 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
         console.log(newArray.size());
     
         console.log('\nLearning DSA - Arrays\n');
-    });
+    })();
 
     (() => {
         console.log(`\n
@@ -99,5 +99,5 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     
         console.log(dLList.indexOf(6));
         console.log(dLList.contains(6));
-    });
+    })();
 })();
