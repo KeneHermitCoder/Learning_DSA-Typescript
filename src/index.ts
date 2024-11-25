@@ -1,26 +1,27 @@
-import Array from './arrays.js';
 import Stack from './stacks.js';
+import Queue from './queues.js';
+import { DynamicArray, } from './arrays.js';
 import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
 
 (() => {
   (() => {
     console.log('\nLearning DSA - Arrays\n');
-    const newArray = new Array(3);
-    newArray.add(7);
-    newArray.clear();
-    newArray.add(2);
-    newArray.add(5);
-    newArray.add(15);
-    newArray.set(1, 0);
-    newArray.add(7);
-    console.log(newArray.toString());
-    newArray.removeAt(1);
-    newArray.remove(7);
-    console.log(newArray.toString());
-    console.log(newArray.indexOf(2));
-    console.log(newArray.contains(2));
-    console.log(newArray.get(0));
-    console.log(newArray.size());
+    const newDynamicArray = new DynamicArray(3);
+    newDynamicArray.add(7);
+    newDynamicArray.clear();
+    newDynamicArray.add(2);
+    newDynamicArray.add(5);
+    newDynamicArray.add(15);
+    newDynamicArray.set(1, 0);
+    newDynamicArray.add(7);
+    console.log(newDynamicArray.toString());
+    newDynamicArray.removeAt(1);
+    newDynamicArray.remove(7);
+    console.log(newDynamicArray.toString());
+    console.log(newDynamicArray.indexOf(2));
+    console.log(newDynamicArray.contains(2));
+    console.log(newDynamicArray.get(0));
+    console.log(newDynamicArray.size());
 
   })();
 
@@ -118,5 +119,22 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     console.log(stack.peek());
     console.log(stack.isEmpty());
     console.log(stack);
+  })();
+
+  (() => {
+    console.log('\nlearning DSA - Queues\n');
+
+    const queue = new Queue<number>();
+    console.log(queue);
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+    console.log(queue.dequeue());
+    console.log(queue.peek());
+    console.log(queue.size());
+    console.log(queue.dequeue());
+    console.log(queue.peek());
+    console.log(queue.isEmpty());
+    console.log(queue);
   })();
 })();
