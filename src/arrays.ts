@@ -25,7 +25,7 @@ class ArrayIterator<T> implements Iterator<T> {
 };
 
 
-export default class MyArray<T> {
+export class DynamicArray<T> {
     private items: T[];
     private length: number = 0;     // the length the user sees
     private capacity: number = 0;   // the length the array actually is
@@ -41,6 +41,7 @@ export default class MyArray<T> {
     };
 
     public isEmpty(): boolean {
+        this.length = this.capacity = 0
         return this.length === 0;
     };
 

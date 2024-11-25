@@ -148,15 +148,12 @@ export class DoubleLinkedList<T> {
         let trav: NodeItem<T> | null = this.head;
         while (trav !== null) {
             const next: NodeItem<T> | null = trav.next;
-            trav.next = null;
-            trav.prev = null;
-            trav.data = null;
+            trav.next = trav.prev = trav.data = null;
             // trav = null;
             trav = next;
         }
         this.size = 0;
-        this.head = null;
-        this.tail = null;
+        this.head = this.tail = null;
     };
 
     // Get the size of the linked list
@@ -255,9 +252,7 @@ export class DoubleLinkedList<T> {
         const data = node.data;
 
         // Clean up the memory
-        node.data = null;
-        node.next = null;
-        node.prev = null;
+        node.data = node.next = node.prev = null;
         // node = null;
 
         // Decrement the size of the linked list

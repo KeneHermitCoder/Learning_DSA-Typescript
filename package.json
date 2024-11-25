@@ -8,6 +8,7 @@
     "start": "tsc-watch --onSuccess \"nodemon ./dist/index.js\"",
     "start:arrays": "tsc-watch --onSuccess \"nodemon ./dist/arrays.js\"",
     "start:stacks": "tsc-watch --onSuccess \"nodemon ./dist/stacks.js\"",
+    "start:queues": "tsc-watch --onSuccess \"nodemon ./dist/queues.js\"",
     "start:linked_lists": "tsc-watch --onSuccess \"nodemon ./dist/linked_lists.js\""
   },
   "keywords": [
