@@ -1,8 +1,8 @@
 import Stack from './stacks.js';
 import Queue from './queues.js';
 import { DynamicArray, } from './arrays.js';
-import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
 import { PriorityQueue } from './priority_queue.js';
+import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
 
 (() => {
   (() => {
