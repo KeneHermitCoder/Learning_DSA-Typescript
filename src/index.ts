@@ -2,6 +2,7 @@ import Stack from './stacks.js';
 import Queue from './queues.js';
 import { DynamicArray, } from './arrays.js';
 import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
+import { PriorityQueue } from './priority_queue.js';
 
 (() => {
   (() => {
@@ -136,5 +137,22 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     console.log(queue.peek());
     console.log(queue.isEmpty());
     console.log(queue);
+  })();
+
+  (() => {
+    console.log('\nlearning DSA - Priority Queues\n');
+
+    const pQueue = new PriorityQueue<number>();
+    console.log(pQueue);
+    pQueue.add(1);
+    pQueue.add(2);
+    pQueue.add(3);
+    console.log(pQueue.poll());
+    console.log(pQueue.peek());
+    console.log(pQueue.size());
+    console.log(pQueue.poll());
+    console.log(pQueue.peek());
+    console.log(pQueue.isEmpty());
+    console.log(pQueue);
   })();
 })();
