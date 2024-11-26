@@ -30,32 +30,32 @@ export class PriorityQueue<T> {
     // };
 
     // Construct a priority queue using heapify method
-    // constructor(array: T[]) {
-    //     this.heapSize = this.capacity = array.length;
-    //     this.heap = new Array(this.capacity);
+    constructor(array: T[]) {
+        this.heapSize = this.capacity = array.length;
+        this.heap = new Array(this.capacity);
 
-    //     // Place all elements in the heap
-    //     for (let i = 0; i < this.heapSize.i++ ) {
-    //         this.mapAdd(array[i], i);
-    //         this.heap.push(array[i]);
-    //     };
+        // Place all elements in the heap
+        for (let i = 0; i < this.heapSize;  i++ ) {
+            this.mapAdd(array[i], i);
+            this.heap[i] = array[i];
+        }
 
-    //     // The heapify process - O(n)
-    //     for (let i = Math.floor(this.heapSize / 2) - 1; i >= 0; i--) {
-    //         this.sink(i);
-    //     };
-    // };
+        // The heapify process - O(n)
+        for (let i = Math.floor(this.heapSize / 2) - 1; i >= 0; i--) {
+            this.sink(i);
+        }
+    }
 
     // Construct a priority queue 
-    constructor(...items: T[]) {
-        for (const element of items) this.add(element);
-    };
+    // constructor(...items: T[]) {
+    //     for (const element of items) this.add(element);
+    // };
 
     // Get the size of the queue - O(1)
-    public size(): number { return this.heapSize; };
+    public size(): number { return this.heapSize; }
 
     // Check if the queue is empty - O(1)
-    public isEmpty(): boolean { return this.heapSize === 0; };
+    public isEmpty(): boolean { return this.heapSize === 0; }
 
     // Add an element to the queue - O(n)
     public clear(): void {
@@ -63,10 +63,10 @@ export class PriorityQueue<T> {
         for (let i = 0; i < this.capacity; i++) this.heap[i] = null!;
         this.heapSize = 0;
         this.map.clear();
-    };
+    }
 
     // Peek at the first item in the queue - O(1)
-    public peek(): T | null { return this.isEmpty() ? null : this.heap[0]; };
+    public peek(): T | null { return this.isEmpty() ? null : this.heap[0]; }
 
     // Add an element to the queue - O(n)
     public add(element: T): void {
@@ -75,17 +75,17 @@ export class PriorityQueue<T> {
         else {
             this.heap.push(element);
             this.capacity++;
-        };
+        }
         this.mapAdd(element, this.heapSize);
         this.swim(this.heapSize - 1);
         this.heapSize++;
-    };
+    }
 
     // Remove an element from the queue - O(log(n))
     public poll(): T {
         if (this.isEmpty()) throw new Error('Queue is empty');
         return this.removeAt(0);
-    };
+    }
 
     // Check if an element is in the queue
     public contains(element: T): boolean {
@@ -98,13 +98,13 @@ export class PriorityQueue<T> {
         //     if (this.heap[i] === element) return true;
         // };
         // return false;
-    };
+    }
 
     // Test if the first element is greater than or equal(<=) to the second element,
     // assuming that i and j are valid indices - O(1)
     private less(i: number, j: number): boolean {
         return this.heap[i] < this.heap[j];
-    };
+    }
 
     private swim(i: number): void {
         // Grab the index of the next parent node with respect to k - O(1)
@@ -119,15 +119,15 @@ export class PriorityQueue<T> {
 
             // Grab the index of the next parent node with respect to k - O(1)
             parent = Math.floor((i - 1) / 2);
-        };
-    };
+        }
+    }
 
     private sink(i: number): void {
         while (true) {
             let left = 2 * i + 1;   // left child node
             let right = 2 * i + 2;  // right child node
             let min = left;            // assume the current node is the smallest
-
+            
             // check if the left child is smaller than the current node; if the right child is
             // smaller, update min to be the right child
             if (right < this.heapSize && this.less(right, left)) min = right;
@@ -139,8 +139,8 @@ export class PriorityQueue<T> {
             // Move down the heap to the smallest child
             this.swap(min, i);
             i = min;
-        };
-    };
+        }
+    }
 
     //
     private swap(i: number, j: number): void {
@@ -149,7 +149,7 @@ export class PriorityQueue<T> {
         this.heap[j] = temp;
 
         this.mapSwap(this.heap[i], this.heap[j], i, j);
-    };
+    }
 
     //
     public remove(element: T): boolean {
@@ -167,22 +167,23 @@ export class PriorityQueue<T> {
         const index = this.mapGet(element);
         if (index !== null) this.removeAt(index);
         return index !== null;
-    };
+    }
 
     private removeAt(index: number): T {
         if (this.isEmpty()) throw new Error('Queue is empty');
 
         this.heapSize--;
         const removed_data = this.heap[index];
+        this.swap(index, this.heapSize);
 
         // Obliterate the value in the map - O(1)
-        this.heap[index] = null!;
+        this.heap[this.heapSize] = null!;
         this.mapRemove(removed_data, this.heapSize);
 
         // Removed last element
         if (index === this.heapSize) return removed_data;
 
-        const element: T = this.heap[this.heapSize];
+        const element: T = this.heap[index];
 
         // Try sinking first
         this.sink(index);
@@ -192,9 +193,38 @@ export class PriorityQueue<T> {
         if (this.heap[index] === element) this.swim(index);
 
         return removed_data;
+    }
+
+    private mapAdd(element: T, index: number): void {
+        let set = <Set<any>>this.map.get(element);
+
+        if (set === null || set === undefined) {
+            set = new Set<T>();
+            set.add(index);
+            this.map.set(element, set);
+        } else set.add(index);
+    }
+
+    private mapRemove(element: T, index: number): void {
+        const set = <Set<any>>this.map.get(element);
+        if (set !== null && set !== undefined) set.delete(index);
+        if (set?.size === 0) this.map.delete(element);
+    }
+
+    private mapGet(element: T): number | null {
+        const set = <Set<any>>this.map.get(element);
+        if (set !== null) return set.values().next().value;
+        return null;
+    }
+
+    private mapSwap(element1: T, element2: T, index1: number, index2: number): void {
+        this.mapRemove(element1, index1);
+        this.mapRemove(element2, index2);
+        this.mapAdd(element1, index2);
+        this.mapAdd(element2, index1);
     };
 
-    private isMinHeap(k: number): boolean {
+    public isMinHeap(k: number): boolean {
         // If we're outside the bounds of the heap, return true
         if (k >= this.heapSize) return true;
 
@@ -208,35 +238,5 @@ export class PriorityQueue<T> {
 
         // Recurse on both the left and right children to check if they are also valid heaps
         return this.isMinHeap(left) && this.isMinHeap(right);
-    };
-
-    private mapAdd(element: T, index: number): void {
-        let set = <Set<any>>this.map.get(element);
-
-        if (set === null || set === undefined) {
-            set = new Set<T>();
-            set.add(index);
-            this.map.set(element, set);
-        } else set.add(index);
-    };
-
-    private mapRemove(element: T, index: number): void {
-        const set = <Set<any>>this.map.get(element);
-        console.log({ set, })
-        if (set !== null && set !== undefined) set.delete(index);
-        if (set?.size === 0) this.map.delete(element);
-    };
-
-    private mapGet(element: T): number | null {
-        const set = <Set<any>>this.map.get(element);
-        if (set !== null) return set.values().next().value;
-        return null;
-    };
-
-    private mapSwap(element1: T, element2: T, index1: number, index2: number): void {
-        this.mapRemove(element1, index1);
-        this.mapRemove(element2, index2);
-        this.mapAdd(element1, index2);
-        this.mapAdd(element2, index1);
-    };
-};
+    }
+}
