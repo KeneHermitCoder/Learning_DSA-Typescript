@@ -142,17 +142,20 @@ import { PriorityQueue } from './priority_queue.js';
   (() => {
     console.log('\nlearning DSA - Priority Queues\n');
 
-    const pQueue = new PriorityQueue<number>();
+    const pQueue = new PriorityQueue<number>([8, 4, 1, 41, 2, 3, 7, 4, 5]);
     console.log(pQueue);
-    pQueue.add(1);
-    pQueue.add(2);
+    pQueue.add(5);
+    console.log(pQueue);
+    console.log(pQueue.poll());
+    console.log(pQueue);
+    console.log(pQueue.peek());
+    console.log(pQueue.remove(5));
+    console.log(pQueue);
+    console.log(pQueue.peek());
     pQueue.add(3);
-    console.log(pQueue.poll());
-    console.log(pQueue.peek());
-    console.log(pQueue.size());
-    console.log(pQueue.poll());
-    console.log(pQueue.peek());
+    pQueue.add(1);
     console.log(pQueue.isEmpty());
     console.log(pQueue);
+    console.log('isminHeap?', pQueue.isMinHeap(2));
   })();
 })();
