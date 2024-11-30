@@ -14,7 +14,7 @@ export class PriorityQueue<T> {
     // The internal capacity of the heap
     private capacity: number = 0;
     // An array to track the elements/nodes in the heap
-    private heap: T[] = [];
+    private readonly heap: T[] = [];
 
     // This map keeps track of the possible indices a particular node value is found in the heap.
     // Having this mapping lets us have O(log(n)) removals and O(1) element containment check at

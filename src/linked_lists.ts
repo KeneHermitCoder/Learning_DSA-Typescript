@@ -4,7 +4,7 @@ class NodeItem<T> {
     public prev?: NodeItem<T> | null;
     public next: NodeItem<T> | null = null;
     // public toString(): string { return this.data.toString(); };
-};
+}
 
 
 export class SinglyLinkedList<T> {
@@ -19,12 +19,20 @@ export class SinglyLinkedList<T> {
                 delete this.prev;
                 this.next = null;
             }
-        };
+        }
         return new Node(data);
     };
 
+    // Add an item to the start of the linked list - O(1)
+    public addAtStart(item: T): void {
+        const node = this.Node(item);
+        node.next = this.head;
+        this.head = node;
+        this.size++;
+    };
+
     // Add an item to the end of the linked list - O(1)
-    public add(item: T): void {
+    public addAtEnd(item: T): void {
         const node = this.Node(item);
         if (this.head === null) {
             this.head = node;
@@ -35,14 +43,6 @@ export class SinglyLinkedList<T> {
             }
             current.next = node;
         }
-        this.size++;
-    };
-
-    // Add an item to the start of the linked list - O(1)
-    public addAtStart(item: T): void {
-        const node = this.Node(item);
-        node.next = this.head;
-        this.head = node;
         this.size++;
     };
 
@@ -122,7 +122,22 @@ export class SinglyLinkedList<T> {
     public isEmpty(): boolean {
         return this.size === 0;
     }
-};
+
+    public printValues() {
+        let stringValues = '';
+        let traversal = this.head;
+        do {
+            const data = typeof traversal?.data !== 'number' ? JSON.stringify(traversal?.data) : traversal.data;
+            if (traversal === this.head) stringValues += `[Head: ${data}] => `;
+            else if (traversal === null) stringValues += `[Tail: ${data}]`;
+            else stringValues += `[${data}] => `;
+            traversal = (traversal && traversal.next)? traversal.next : null;
+        } while (traversal !== null);
+
+        return stringValues;
+    };
+}
+
 
 export class DoubleLinkedList<T> {
     private size: number = 0;
@@ -139,18 +154,18 @@ export class DoubleLinkedList<T> {
                 this.prev = prev;
                 this.next = next;
             };
-        };
+        }
         return new Node(data, prev, next);
     };
 
     // Empty the linked list - O(n)
     public clear(): void {
-        let trav: NodeItem<T> | null = this.head;
-        while (trav !== null) {
-            const next: NodeItem<T> | null = trav.next;
-            trav.next = trav.prev = trav.data = null;
-            // trav = null;
-            trav = next;
+        let traversal: NodeItem<T> | null = this.head;
+        while (traversal !== null) {
+            const next: NodeItem<T> | null = traversal.next;
+            traversal.next = traversal.prev = traversal.data = null;
+            // traversal = null;
+            traversal = next;
         }
         this.size = 0;
         this.head = this.tail = null;
@@ -175,7 +190,7 @@ export class DoubleLinkedList<T> {
         } else {
             this.head!.prev = this.Node(item, null, this.head);
             this.head = this.head!.prev;
-        };
+        }
         this.size++;
     };
 
@@ -187,7 +202,7 @@ export class DoubleLinkedList<T> {
         } else {
             this.tail!.next = this.Node(item, this.tail, null);
             this.tail = this.tail!.next;
-        };
+        }
         this.size++;
     };
 
@@ -264,62 +279,59 @@ export class DoubleLinkedList<T> {
     // Remove a node at a specific index - O(n)
     public removeAt(index: number): T | null {
 
-        // if the index is invlid or the list is empty, throw an error
+        // if the index is invalid or the list is empty, throw an error
         if (index < 0 || index >= this.size || this.isEmpty()) throw new Error('Index out of bounds');
 
-        let trav: NodeItem<T> | null = this.head;
-
+        let traversal: NodeItem<T> | null;
         // Start traversing the linked list from the head
         if (index < this.size / 2) {
             let i = 0;
-            for (trav = this.head; i !== index; i++) trav = trav!.next;
+            for (traversal = this.head; i !== index; i++) traversal = traversal!.next;
 
             // Start traversing the linked list from the tail
         } else {
             let i = this.size - 1;
-            for (trav = this.tail; i !== index; i--) trav = trav!.prev as NodeItem<T> | null;
-        };
+            for (traversal = this.tail; i !== index; i--) traversal = traversal!.prev as NodeItem<T> | null;
+        }
 
-        return this.removeNode(trav!);
+        return this.removeNode(traversal!);
     };
 
     // Remove a particular value from the linked list - O(n)
     public remove(value: T): boolean {
-        let trav: NodeItem<T> | null = this.head;
-
         // Provide support for searching for null
         if (value === null)
-            for (trav = this.head; trav !== null; trav = trav.next) {
-                if (trav.data === null) {
-                    this.removeNode(trav);
+            for (let traversal = this.head; traversal !== null; traversal = traversal.next) {
+                if (traversal.data === null) {
+                    this.removeNode(traversal);
                     return true;
                 }
             }
         // Start traversing the linked list from the head
         else
-            for (trav = this.head; trav !== null; trav = trav.next) {
-                if (trav.data === value) {
-                    this.removeNode(trav);
+            for (let traversal = this.head; traversal !== null; traversal = traversal.next) {
+                if (traversal.data === value) {
+                    this.removeNode(traversal);
                     return true;
                 }
-            };
+            }
 
         return false;
     };
 
     // find the index of a particular value in the linked list - O(n)
     public indexOf(value: T): number {
-        let trav: NodeItem<T> | null = this.head;
+        let traversal: NodeItem<T> | null = this.head;
         let index = 0;
 
         // Provide support for searching for null
         if (value === null) {
-            for (trav !== null; trav = trav!.next; index++)
-                if (trav.data === null) return index;
+            for (traversal !== null; traversal = traversal!.next; index++)
+                if (traversal.data === null) return index;
             // Start traversing the linked list from the head
         } else
-            for (trav !== null; trav = trav!.next; index++)
-                if (trav.data === value) return index;
+            for (traversal !== null; traversal = traversal!.next; index++)
+                if (traversal.data === value) return index;
 
         return -1;
     };
@@ -328,4 +340,17 @@ export class DoubleLinkedList<T> {
     public contains(value: T): boolean {
         return this.indexOf(value) !== -1;
     };
-};
+
+    public printValues() {
+        let stringValues = '';
+        for (let traversal = this.head; traversal !== null; traversal = traversal.next) {
+            if (traversal.data !== null) {
+                const data = typeof traversal.data !== 'number' ? JSON.stringify(traversal.data) : traversal.data;
+                if (traversal === this.head) stringValues += `[Head: ${data}] => `;
+                else if (traversal === this.tail) stringValues += `[Tail: ${data}]`;
+                else stringValues += `[${data}] => `;
+            }
+        }
+        return stringValues;
+    };
+}

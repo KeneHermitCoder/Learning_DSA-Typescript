@@ -26,6 +26,7 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
 
   })();
 
+
   (() => {
     console.log('\nLearning DSA - Linked lists\n');
 
@@ -42,18 +43,17 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
               |||||||      ||||||||||    ||||||||||
         `);
 
-    const sLList = new SinglyLinkedList<number>();
-    sLList.add(1);
-    sLList.addAtStart(2);
-    console.log('1', sLList, '\n');
+    const sLList = new SinglyLinkedList<number | object>();
+    sLList.addAtEnd(2);
+    sLList.addAtStart(1);
+    console.log('1', sLList.printValues(), '\n');
+    sLList.addAtStart(7);
+    console.log('2', sLList.printValues(), '\n');
     sLList.addAtStart(4);
-    sLList.add(2);
-    console.log('2', sLList, '\n');
-    console.log('3', (<any>sLList).head, '\n');
-    console.log('4', (<any>sLList).head.next, '\n');
-    console.log('5', (<any>sLList).head.next.prev, '\n');
+    sLList.addAtEnd(2);
+    console.log('3', sLList.printValues(), '\n');
     sLList.removeFirst();
-    console.log('6', sLList, '\n\n\n');
+    console.log('4', sLList.printValues(), '\n\n\n');
 
 
 
@@ -69,15 +69,15 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
             ||||||||||      ||||||||||    ||||||||||
             |||||||||       ||||||||||    ||||||||||
         `);
-    const dLList = new DoubleLinkedList<number>();
+    const dLList = new DoubleLinkedList<number | object>();
     dLList.addAtEnd(2);
-    console.log('1', dLList, '\n');
+    console.log('1', dLList.printValues(), '\n');
 
     dLList.addAtStart(1);
-    console.log('2', dLList, '\n');
+    console.log('2', dLList.printValues(), '\n');
 
     dLList.clear();
-    console.log('3', dLList, '\n');
+    console.log('3', dLList.printValues(), '\n');
 
     dLList.addAtEnd(3);
     dLList.addAtStart(4);
@@ -85,26 +85,27 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     console.log(dLList.peekFirst(), '\n');
 
     dLList.removeLast();
-    console.log('5', dLList, '\n');
+    console.log('5', dLList.printValues(), '\n');
 
     dLList.removeFirst();
-    console.log('6', dLList, '\n');
+    console.log('6', dLList.printValues(), '\n');
 
     dLList.addAtEnd(5);
-    dLList.addAtStart({ greeting: 'hello' } as any);
+    dLList.addAtStart({ greeting: 'hello' });
     dLList.addAtStart(6);
     dLList.addAtEnd(6);
-    console.log('7', dLList, '\n');
+    console.log('7', dLList.printValues(), '\n');
 
     dLList.removeAt(0);
-    console.log('8', dLList, '\n');
+    console.log('8', dLList.printValues(), '\n');
 
     dLList.remove(5);
-    console.log('9', dLList, '\n');
+    console.log('9', dLList.printValues(), '\n');
 
     console.log(dLList.indexOf(6));
     console.log(dLList.contains(6));
   })();
+
 
   (() => {
     console.log('\nLearning DSA - Stacks\n');
@@ -121,6 +122,7 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     console.log(stack.isEmpty());
     console.log(stack);
   })();
+
 
   (() => {
     console.log('\nlearning DSA - Queues\n');
@@ -139,6 +141,7 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     console.log(queue);
   })();
 
+
   (() => {
     console.log('\nlearning DSA - Priority Queues\n');
 
@@ -156,6 +159,9 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     pQueue.add(1);
     console.log(pQueue.isEmpty());
     console.log(pQueue);
-    console.log('isminHeap?', pQueue.isMinHeap(2));
+    console.log('isMinHeap?', pQueue.isMinHeap(2));
   })();
+
+  return;
+  // process.exit(0);
 })();

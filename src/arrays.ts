@@ -1,28 +1,28 @@
-interface IteratorResult<T> {
-    value: T;
-    done: boolean;
-};
+// interface IteratorResult<T> {
+//     value: T;
+//     done: boolean;
+// }
 
-class ArrayIterator<T> implements Iterator<T> {
-    private index: number;
-    private array: T[];
-
-    constructor(array: T[]) {
-        this.index = 0;
-        this.array = array;
-    }
-
-
-    public next(): IteratorResult<T> | { value: never, done: true } {
-        if (this.index >= this.array.length) {
-            return { value: undefined as never, done: true };
-        }
-
-        const value = this.array[this.index];
-        this.index++;
-        return { value, done: false };
-    }
-};
+// class ArrayIterator<T> implements Iterator<T> {
+//     private index: number;
+//     private readonly array: T[];
+//
+//     constructor(array: T[]) {
+//         this.index = 0;
+//         this.array = array;
+//     }
+//
+//
+//     public next(): IteratorResult<T> | { value: never, done: true } {
+//         if (this.index >= this.array.length) {
+//             return { value: undefined as never, done: true };
+//         }
+//
+//         const value = this.array[this.index];
+//         this.index++;
+//         return { value, done: false };
+//     }
+// }
 
 
 export class DynamicArray<T> {
@@ -58,7 +58,7 @@ export class DynamicArray<T> {
     public clear(): void {
         for (let i = 0; i < this.capacity; i++) {
             (<Array<T | null>>this.items)[i] = null;
-        };
+        }
         this.length = 0;
     };
 
@@ -70,7 +70,7 @@ export class DynamicArray<T> {
                 const new_items = new Array(this.capacity);
                 for (let i = 0; i < this.length; i++) {
                     new_items[i] = this.items[i];
-                };
+                }
             }
         }
         this.items[this.length++] = item;
@@ -96,8 +96,8 @@ export class DynamicArray<T> {
             if (this.items[i] === item) {
                 this.removeAt(i);
                 return true;
-            };
-        };
+            }
+        }
         console.log({ item, });
         return false;
     };
@@ -112,18 +112,18 @@ export class DynamicArray<T> {
         return this.indexOf(item) !== -1;
     };
 
-    public iterator(): Iterator<T> {
-        return new ArrayIterator(this.items);
-    };
+    // public iterator(): Iterator<T> {
+    //     return new ArrayIterator(this.items);
+    // };
 
     public toString(): string {
         if (this.length === 0) return '[]';
         let result = '[';
         for (let i = 0; i < this.length - 1; i++) {
             result += this.items[i] + ', ';
-        };
+        }
         result += this.items[this.length - 1] + ']';
         return result;
     };
 
-};
+}

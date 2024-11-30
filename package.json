@@ -10,14 +10,16 @@
     "start:stacks": "tsc-watch --onSuccess \"nodemon ./dist/stacks.js\"",
     "start:queues": "tsc-watch --onSuccess \"nodemon ./dist/queues.js\"",
     "start:linked_lists": "tsc-watch --onSuccess \"nodemon ./dist/linked_lists.js\"",
-    "start: priority_queues": "tsc-watch --onSuccess \"nodemon ./dist/priority_queues.js\""
+    "start:linear_search": "tsc-watch --onSuccess \"nodemon ./dist/linear_search.js\"",
+    "start:binary_search": "tsc-watch --onSuccess \"nodemon ./dist/binary_search.js\"",
+    "start:priority_queues": "tsc-watch --onSuccess \"nodemon ./dist/priority_queues.js\""
   },
   "keywords": [
     "dsa",
     "arrays",
     "stacks",
-    "dynamic arrays",
-    "static arrays"
+    "static arrays",
+    "dynamic arrays"
   ],
   "author": "Kene Nnakwue",
   "license": "ISC",
