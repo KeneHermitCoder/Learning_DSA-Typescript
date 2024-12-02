@@ -1,6 +1,6 @@
-import { timeInterval } from "./utils/timeInterval";
+import { timeInterval, } from './utils/timeInterval';
 
-export class MergeSort<T> {
+class MergeSortArray<T> {
 
     public recursiveDepth = 0;
 
@@ -27,40 +27,40 @@ export class MergeSort<T> {
         let i = 0, j = 0, k = 0;
         const array: T[] = [];
         while (i < leftArray.length && j < rightArray.length) {
-            // if (leftArray[i] > rightArray[j]) {
-            if (leftArray[i] < rightArray[j]) {
-                // array[k] = leftArray[i];
-                array.push(leftArray[i]);
+            // if (leftArray[i] > rightArray[j]) {      // sort in descending order
+            if (leftArray[i] < rightArray[j]) {         // sort in ascending order
+                // array.push(leftArray[i]);
+                array[k] = leftArray[i];
                 i++;
-                // k++;
             } else {
-                // array[k] = rightArray[j];
-                array.push(rightArray[j]);
+                // array.push(rightArray[j]);
+                array[k] = rightArray[j];
                 j++;
-                // k++;
             }
+            k++;
         }
 
     
         while (i < leftArray.length) {
-            array[k] = leftArray[i];
             // array.push(leftArray[i]);
+            array[k] = leftArray[i];
             i++;
-            // k++;
+            k++;
         }
         while (j < rightArray.length) {
-            // array[k] = rightArray[j];
-            array.push(rightArray[j]);
+            // array.push(rightArray[j]);
+            array[k] = rightArray[j];
             j++;
-            // k++;
+            k++;
         }
 
         return array;
     }
+
 }
 
 
-const arrayToSort = new Array(500000);
+const arrayToSort = new Array(1000);
 for (let i = 0; i < arrayToSort.length; i++)
     arrayToSort[i] = Math.ceil(Math.random() * arrayToSort.length);
 console.log('log2(array.length): ', Math.log2(arrayToSort.length));
@@ -76,12 +76,12 @@ console.log('array.length * log2(array length): ', arrayToSort.length * Math.log
         arrayToSort
     });
 
-    const mergeSort = new MergeSort();
+    const mergeSort = new MergeSortArray();
     const mergeSortedArray = mergeSort.run(arrayToSort);
     console.log('\nAfter merge_sort sorting...');
     console.log({
         'recursiveDepth': mergeSort.recursiveDepth,
-        'timeInterval': timeInterval(timeBeforeSort, new Date(), 's'),
+        'timeInterval': timeInterval(timeBeforeSort, new Date(), 'ms'),
         sortedArray: mergeSortedArray
     });
 })();
@@ -99,7 +99,7 @@ console.log('array.length * log2(array length): ', arrayToSort.length * Math.log
     arrayToSort.sort((a, b) => a - b);
     console.log('\n\nAfter built-in sorting...\n');
     console.log({
-        'timeInterval': timeInterval(timeBeforeSort, new Date(), 's'),
+        'timeInterval': timeInterval(timeBeforeSort, new Date(), 'ms'),
         sortedArray: arrayToSort,
     });
 })();

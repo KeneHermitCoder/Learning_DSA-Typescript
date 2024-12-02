@@ -9,5 +9,5 @@ export function timeInterval(start: Date | number, end: Date | number, format: '
         M: 2592000000,
         y: 31536000000
     }
-    return `${(diff / formats[format]).toFixed(2)} ${format}`;
+    return `${(diff / formats[format]).toFixed(3)} ${format}`;
 }
