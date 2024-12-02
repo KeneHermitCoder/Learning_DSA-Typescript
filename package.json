@@ -9,18 +9,25 @@
     "start:arrays": "tsc-watch --onSuccess \"node ./dist/arrays.js\"",
     "start:stacks": "tsc-watch --onSuccess \"node ./dist/stacks.js\"",
     "start:queues": "tsc-watch --onSuccess \"node ./dist/queues.js\"",
-    "start:merge_sort": "tsc-watch --onSuccess \"node ./dist/merge_sort.js\"",
     "start:linked_lists": "tsc-watch --onSuccess \"node ./dist/linked_lists.js\"",
     "start:linear_search": "tsc-watch --onSuccess \"node ./dist/linear_search.js\"",
     "start:binary_search": "tsc-watch --onSuccess \"node ./dist/binary_search.js\"",
-    "start:priority_queues": "tsc-watch --onSuccess \"node ./dist/priority_queues.js\""
+    "start:priority_queues": "tsc-watch --onSuccess \"node ./dist/priority_queues.js\"",
+    "start:merge_sort_array": "tsc-watch --onSuccess \"node ./dist/merge_sort_array.js\"",
+    "start:merge_sort_linked_list": "tsc-watch --onSuccess \"node ./dist/merge_sort_linked_list.js\""
   },
   "keywords": [
     "dsa",
     "arrays",
     "stacks",
+    "queues",
+    "merge sort",
+    "linked lists",
     "static arrays",
-    "dynamic arrays"
+    "linear search",
+    "binary search",
+    "dynamic arrays",
+    "priority queues"
   ],
   "author": "Kene Nnakwue",
   "license": "ISC",
