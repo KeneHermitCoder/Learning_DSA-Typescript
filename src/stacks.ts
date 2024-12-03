@@ -10,7 +10,7 @@ export default class Stack<T> {
 
     // Get the size of the stack - O(1)
     public size(): number {
-        return this.stack.size;
+        return this.stack.size();
     }
 
     // Check if the stack is empty - O(1)

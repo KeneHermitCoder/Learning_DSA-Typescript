@@ -56,9 +56,8 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     console.log('4', sLList.printValues(), '\n\n\n');
     sLList.insertAt(5, 2);
     sLList.insertAt(3, 4);
-    sLList.insertAt(20, 5);
-    console.log('5', sLList, '\n'); 
-    console.log('5', sLList.printValues(), '\n');
+    sLList.insertAt(20, sLList.size());
+    console.log('5', sLList, '\n');
     console.log('6', sLList.search(3), '\n');
     console.log('7', sLList.nodeAt(5), '\n');
 
@@ -83,11 +82,14 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     const dLList = new DoubleLinkedList<number | object>();
     dLList.addAtEnd(2);
     console.log('1', dLList.printValues(), '\n');
-
-    dLList.addAtStart(1);
+    
+    dLList.addAtEnd(1);
+    dLList.addAtEnd(1);
+    console.log('2', dLList, '\n');
     console.log('2', dLList.printValues(), '\n');
 
     dLList.clear();
+    console.log('3', dLList, '\n');
     console.log('3', dLList.printValues(), '\n');
 
     dLList.addAtEnd(3);

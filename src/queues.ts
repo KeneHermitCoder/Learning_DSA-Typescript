@@ -18,7 +18,7 @@ export default class Queue<T> {
 
     // Get the size of the queue - O(1)
     public size(): number {
-        return this.list.size;
+        return this.list.size();
         // // array implementation
         // return this.list.length;
     };

@@ -1,5 +1,5 @@
 // class Node<T extends { toString(): string }> {
-class NodeItem<T> {
+export class NodeItem<T> {
     public prev?: NodeItem<T> | null;
     public data: T | null = null;
     public next: NodeItem<T> | null = null;
@@ -8,8 +8,7 @@ class NodeItem<T> {
 
 
 export class SinglyLinkedList<T> {
-    private head: NodeItem<T> | null = null;
-    private listSize: number = 0;
+    public head: NodeItem<T> | null = null;
 
     /**
      * @param data - The data to be stored in the node
@@ -36,7 +35,6 @@ export class SinglyLinkedList<T> {
         const node = this.Node(item);
         node.next = this.head;
         this.head = node;
-        this.listSize++;
     };
 
     /**
@@ -55,7 +53,6 @@ export class SinglyLinkedList<T> {
             }
             current.next = node;
         }
-        this.listSize++;
     };
 
     /**
@@ -65,9 +62,9 @@ export class SinglyLinkedList<T> {
      * @yields - a time complexity of O(n)
      */
     public insertAt(item: T, index: number): void {
-        if (index < 0 || index > this.listSize) throw new Error('Index out of bounds');
+        if (index < 0 || index > this.size()) throw new Error('Index out of bounds');
         if (index === 0) return this.addAtStart(item);
-        else if (index === this.listSize) return this.addAtEnd(item);
+        else if (index === this.size()) return this.addAtEnd(item);
         else {
             const newNode = this.Node(item);
             let position = index;
@@ -80,44 +77,35 @@ export class SinglyLinkedList<T> {
             const next = current.next;
             prev.next = newNode;
             newNode.next = next;
-            this.listSize++;
         }
     }
 
     /**
      * 
-     * @returns - The size of the linked list
+     * @returns - The remove first node
      * @yields - a time complexity of O(1)
      */
-    public removeFirst(): T | null {
-        if (this.head === null) {
-            return null;
-        }
-        const data = this.head.data;
+    public removeFirst(): NodeItem<T> | null {
+        if (this.head === null) return this.head;
+        const removedNode = this.head;
         this.head = this.head.next;
-        this.listSize--;
-        return data;
+        return removedNode;
     };
 
     // Remove an item from the end of the linked list - O(n)
-    public removeLast(): T | null {
-        if (this.head === null) {
-            return null;
-        }
+    public removeLast(): NodeItem<T> | null {
+        if (this.head === null) return this.head;
+        let currentNode = this.head;
         if (this.head.next === null) {
-            const data = this.head.data;
             this.head = null;
-            this.listSize--;
-            return data;
+            return currentNode;
         }
-        let current = this.head;
-        while (current.next!.next !== null) {
-            current = current.next as NodeItem<T>;
+        while (currentNode.next!.next !== null) {
+            currentNode = currentNode.next as NodeItem<T>;
         }
-        const data = current.next!.data;
-        current.next = null;
-        this.listSize--;
-        return data;
+        const removedNode = currentNode.next;
+        currentNode.next = null;
+        return removedNode;
     };
 
     // Remove an item from the linked list - O(n)
@@ -141,7 +129,6 @@ export class SinglyLinkedList<T> {
         }
 
         if (foundItem) {
-            this.listSize--;
             const temp = current;
             current = null;
             return temp;
@@ -149,21 +136,50 @@ export class SinglyLinkedList<T> {
         return current;
     };
 
-    public removeAt(index: number): T | null {
-        if (index < 0 || index >= this.listSize) throw new Error('Index out of bounds');
+    public removeAt(index: number): NodeItem<T> | null {
+        if (index < 0 || index >= this.size()) throw new Error('Index out of bounds');
         if (index === 0) return this.removeFirst();
-        if (index === this.listSize - 1) return this.removeLast();
+        if (index === this.size() - 1) return this.removeLast();
 
         let current = this.head;
         for (let i = 0; i < index - 1; i++) current = current!.next;
-        const data = current!.next!.data;
+        const removedNode = current!.next;
         current!.next = current!.next!.next;
-        this.listSize--;
-        return data;
+        return removedNode;
     };
 
+    public deleteFrom(index: number): NodeItem<T> | null {
+        let current = this.head as NodeItem<T>;
+        if (current === null) return current;
+        if (index < 0 || index >= this.size()) throw new Error('Index out of bounds');
+        if (index === 0) return this.removeFirst();
+        else if (index === this.size() - 1) return this.removeLast();
+        else {
+            let position = 0;
+            while (position < index) {
+                current = current.next as NodeItem<T>;
+                position++;
+            }
+
+            const removedNode = current;
+            current.next = null;
+            return removedNode;
+        }
+    }
+
     // Get the size of the linked list - O(1)
-    get size(): number { return this.listSize; };
+    public size(): number {
+        let current = this.head;
+        if (current === null) return 0;
+        else {
+            let listSize = 0;
+            while(current !== null) {
+                current = current.next;
+                listSize++;
+            }
+            return listSize;
+        }
+    };
 
     public search(value: T) {
         let currentNode = this.head;
@@ -174,12 +190,12 @@ export class SinglyLinkedList<T> {
     }
 
     public nodeAt(index: number): NodeItem<T> | null {
-        if (index <  0 || index >= this.size) throw new Error('Index out bounds!')
+        if (index < 0 || index >= this.size()) throw new Error('Index out bounds!')
         let currentNode = this.head;
         if (index === 0) return currentNode;
 
         let position = 0;
-        while (index && position < this.size) {
+        while (index && position < this.size()) {
             currentNode = currentNode?.next as NodeItem<T>;
             index--;
             position++;
@@ -189,7 +205,7 @@ export class SinglyLinkedList<T> {
 
     // Check if the linked list is empty
     public isEmpty(): boolean {
-        return this.listSize === 0;
+        return this.size() === 0;
     }
 
     public printValues() {
@@ -209,7 +225,6 @@ export class SinglyLinkedList<T> {
 
 
 export class DoubleLinkedList<T> {
-    private listSize: number = 0;
     private head: NodeItem<T> | null = null;
     private tail: NodeItem<T> | null = null;
 
@@ -236,15 +251,25 @@ export class DoubleLinkedList<T> {
             // traversal = null;
             traversal = next;
         }
-        this.listSize = 0;
         this.head = this.tail = null;
     };
 
     // Get the size of the linked list
-    get size(): number { return this.listSize; };
+    public size(): number {
+        let current = this.head;
+        if (current === null) return 0;
+        else {
+            let listSize = 0;
+            while(current != null) {
+                listSize++;
+                current = current.next;
+            }
+            return listSize;
+        }
+    };
 
     // Check if the linked list is empty
-    public isEmpty(): boolean { return this.size=== 0; };
+    public isEmpty(): boolean { return this.size() === 0; };
 
     // Add an item to the tail of the linked list - O(1)
     public add(item: T): void {
@@ -260,7 +285,6 @@ export class DoubleLinkedList<T> {
             this.head!.prev = this.Node(item, null, this.head);
             this.head = this.head!.prev;
         }
-        this.listSize++;
     };
 
     // Add an item to the end of the linked list - O(1)
@@ -272,15 +296,14 @@ export class DoubleLinkedList<T> {
             this.tail!.next = this.Node(item, this.tail, null);
             this.tail = this.tail!.next;
         }
-        this.listSize++;
     };
 
     public insertAt(item: T, index: number): void {
-        if (index < 0 || index > this.listSize) throw new Error('Index out of bounds');
-        if (index === 0) return this.addAtStart(item);
-        if (index === this.listSize) return this.addAtEnd(item);
+        if (index < 0 || index > this.size()) throw new Error('Index out of bounds');
+        if (index === 0) return this.addAtStart(item); 
+        if (index === this.size()) return this.addAtEnd(item);
 
-        const midpoint = Math.floor((this.listSize / 2));
+        const midpoint = Math.floor((this.size() / 2));
         let current = <NodeItem<T>>this.head;
         if (index < midpoint) {
             while (index > 1) {
@@ -289,7 +312,7 @@ export class DoubleLinkedList<T> {
             }
         } else {
             current = <NodeItem<T>>this.tail;
-            while (index < this.listSize) {
+            while (index < this.size()) {
                 current = current.prev as NodeItem<T>
                 index++;
             }
@@ -304,7 +327,6 @@ export class DoubleLinkedList<T> {
 
         next.prev = newNode;
         newNode.next = next;
-        this.listSize++;
     }
 
     // Get the first item in the linked list - O(1)
@@ -326,7 +348,6 @@ export class DoubleLinkedList<T> {
         // Extract the data from the head and move the header pointer forwards one node
         const data = this.head!.data;
         this.head = this.head!.next;
-        this.listSize--;
 
         // If the list is now empty, set the tail to null
         if (this.isEmpty()) this.tail = null;
@@ -343,7 +364,6 @@ export class DoubleLinkedList<T> {
         // Extract the data from the tail and move the tail pointer backwards one node
         const data = this.tail!.data;
         this.tail = this.tail!.prev as NodeItem<T> | null;
-        this.listSize--;
 
         // If the list is now empty, set the head to null
         if (this.isEmpty()) this.head = null;
@@ -371,9 +391,6 @@ export class DoubleLinkedList<T> {
         node.data = node.next = node.prev = null;
         // node = null;
 
-        // Decrement the size of the linked list
-        this.listSize--;
-
         return data;
     };
 
@@ -381,17 +398,17 @@ export class DoubleLinkedList<T> {
     public removeAt(index: number): T | null {
 
         // // if the index is invalid or the list is empty, throw an error
-        // if (index < 0 || index >= this.listSize || this.isEmpty()) throw new Error('Index out of bounds');
+        // if (index < 0 || index >= this.size() || this.isEmpty()) throw new Error('Index out of bounds');
 
         // let traversal: NodeItem<T> | null;
         // // Start traversing the linked list from the head
-        // if (index < this.listSize / 2) {
+        // if (index < this.size() / 2) {
         //     let i = 0;
         //     for (traversal = this.head; i !== index; i++) traversal = traversal!.next;
 
         //     // Start traversing the linked list from the tail
         // } else {
-        //     let i = this.listSize - 1;
+        //     let i = this.size() - 1;
         //     for (traversal = this.tail; i !== index; i--) traversal = traversal!.prev as NodeItem<T> | null;
         // }
 
@@ -439,17 +456,17 @@ export class DoubleLinkedList<T> {
     public nodeAt(index: number): NodeItem<T> | null {
 
         // if the index is invalid or the list is empty, throw an error
-        if (index < 0 || index >= this.listSize || this.isEmpty()) throw new Error('Index out of bounds');
+        if (index < 0 || index >= this.size() || this.isEmpty()) throw new Error('Index out of bounds');
 
         let traversal: NodeItem<T> | null;
         // Start traversing the linked list from the head
-        if (index < this.listSize / 2) {
+        if (index < this.size() / 2) {
             let i = 0;
             for (traversal = this.head; i !== index; i++) traversal = traversal!.next;
 
             // Start traversing the linked list from the tail
         } else {
-            let i = this.listSize - 1;
+            let i = this.size() - 1;
             for (traversal = this.tail; i !== index; i--) traversal = traversal!.prev as NodeItem<T> | null;
         }
 
