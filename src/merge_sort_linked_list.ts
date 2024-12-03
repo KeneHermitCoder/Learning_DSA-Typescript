@@ -11,18 +11,17 @@ class MergeSortLinkedList<T> {
         return this.handleSortDoubleLinkedList(linked_list);
     }
 
-    private handleSortSinglyLinkedList(linked_list: SinglyLinkedList<T>): SinglyLinkedList<T> {
-        if (linked_list.size() === 1 || linked_list.head === null) return linked_list;
+    private handleSortSinglyLinkedList(linked_list: SinglyLinkedList<T> | null): SinglyLinkedList<T> {
+        if (linked_list?.size() === 1 || linked_list?.head === null) return linked_list;
 
         let [leftList, rightList] = this.handleSplitSinglyLinkedList(linked_list);
         leftList = this.handleSortSinglyLinkedList(leftList);
         rightList = this.handleSortSinglyLinkedList(rightList);
 
-        console.log([leftList.printValues(), rightList.printValues()])
         return this.handleMergeSinglyLinkedList(leftList, rightList);
     }
 
-    private handleSplitSinglyLinkedList(linked_list: SinglyLinkedList<T>): any[] {
+    private handleSplitSinglyLinkedList(linked_list: SinglyLinkedList<T> | null): Array<SinglyLinkedList<T> | null> {
         if (linked_list === null || linked_list.head === null) return [linked_list, null];
 
         const midpoint = Math.floor(linked_list.size() / 2);
@@ -37,37 +36,37 @@ class MergeSortLinkedList<T> {
 
     private handleMergeSinglyLinkedList(left_list: SinglyLinkedList<T>, right_list: SinglyLinkedList<T>): SinglyLinkedList<T> {
         const newList = new SinglyLinkedList<T>();
-         newList.addAtStart(0 as T);
+        newList.addAtStart(0 as T);
 
-         let current = newList.head as NodeItem<T>;
+        let current = newList.head as NodeItem<T>;
 
-         let leftHead = left_list.head;
-         let rightHead = right_list.head;
+        let leftHead = left_list.head;
+        let rightHead = right_list.head;
 
-         while (leftHead !== null || rightHead !== null) {
-             if (leftHead === null) {
-                 current.next = rightHead
-                 rightHead = rightHead!.next as NodeItem<T>;
-             } else if (rightHead === null) {
-                 current.next = leftHead;
-                 leftHead = leftHead.next as NodeItem<T>;
-             } else {
-                 const leftData = leftHead.data as T;
-                 const rightData = rightHead.data as T;
+        while (leftHead !== null || rightHead !== null) {
+            if (leftHead === null) {
+                current.next = rightHead
+                rightHead = rightHead!.next as NodeItem<T>;
+            } else if (rightHead === null) {
+                current.next = leftHead;
+                leftHead = leftHead.next as NodeItem<T>;
+            } else {
+                const leftData = leftHead.data as T;
+                const rightData = rightHead.data as T;
 
-                 if (leftData < rightData){
-                     current.next = leftHead;
-                     leftHead = leftHead.next;
-                 } else {
-                     current.next = rightHead;
-                     rightHead = rightHead.next;
-                 }
-             }
-             current = current.next as NodeItem<T>;
-         }
+                if (leftData < rightData) {
+                    current.next = leftHead;
+                    leftHead = leftHead.next;
+                } else {
+                    current.next = rightHead;
+                    rightHead = rightHead.next;
+                }
+            }
+            current = current.next as NodeItem<T>;
+        }
 
-         newList.head = newList.head!.next;
-         return newList;
+        newList.head = newList.head!.next;
+        return newList;
     }
 
 
@@ -89,7 +88,7 @@ class MergeSortLinkedList<T> {
 }
 
 
-const listLength = 30;
+const listLength = 500;
 const sLList = new SinglyLinkedList<number>();
 const dLList = new DoubleLinkedList<number>();
 for (let i = 0; i < listLength; i++) {
@@ -110,7 +109,7 @@ for (let i = 0; i < listLength; i++) {
 
     const mergeSort = new MergeSortLinkedList();
     const mergeSortedList = mergeSort.run(sLList) as SinglyLinkedList<number>;
-    console.log('\nAfter merge_sort sorting...');
+    console.log('\n\nAfter merge_sort sorting...');
     console.log({
         'recursiveDepth': mergeSort.recursiveDepth,
         'timeInterval': timeInterval(timeBeforeSLLSort, new Date(), 'ms'),
