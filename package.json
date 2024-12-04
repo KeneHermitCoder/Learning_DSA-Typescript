@@ -10,6 +10,7 @@
     "start:stacks": "tsc-watch --onSuccess \"node ./dist/stacks.js\"",
     "start:queues": "tsc-watch --onSuccess \"node ./dist/queues.js\"",
     "start:bogo_sort": "tsc-watch --onSuccess \"node ./dist/bogo_sort.js\"",
+    "start:quick_sort": "tsc-watch --onSuccess \"node ./dist/quick_sort.js\"",
     "start:linked_lists": "tsc-watch --onSuccess \"node ./dist/linked_lists.js\"",
     "start:linear_search": "tsc-watch --onSuccess \"node ./dist/linear_search.js\"",
     "start:binary_search": "tsc-watch --onSuccess \"node ./dist/binary_search.js\"",
