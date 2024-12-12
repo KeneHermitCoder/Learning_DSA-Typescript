@@ -136,10 +136,8 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     stack.push(2);
     console.log(stack.pop());
     console.log(stack.peek());
-    console.log(stack.size());
     console.log(stack.pop());
     console.log(stack.peek());
-    console.log(stack.isEmpty());
     console.log(stack);
   })();
 
@@ -154,10 +152,8 @@ import { SinglyLinkedList, DoubleLinkedList, } from './linked_lists.js';
     queue.enqueue(3);
     console.log(queue.dequeue());
     console.log(queue.peek());
-    console.log(queue.size());
     console.log(queue.dequeue());
     console.log(queue.peek());
-    console.log(queue.isEmpty());
     console.log(queue);
   })();
 

@@ -1,6 +1,13 @@
 import { DoubleLinkedList, } from './linked_lists';
 
-export default class Stack<T> {
+interface IStack<T> {
+    push(item: T): void;
+    pop(): T | null;
+    peek(): T | null;
+}
+
+export default class Stack<T> implements IStack<T> {
+
     private stack: DoubleLinkedList<T> = new DoubleLinkedList<T>();
 
     // Optionally pass in the first item upon initialization, otherwise the stack will be empty
@@ -9,12 +16,12 @@ export default class Stack<T> {
     }
 
     // Get the size of the stack - O(1)
-    public size(): number {
+    private size(): number {
         return this.stack.size();
     }
 
     // Check if the stack is empty - O(1)
-    public isEmpty(): boolean {
+    private isEmpty(): boolean {
         return this.size() === 0;
     }
 

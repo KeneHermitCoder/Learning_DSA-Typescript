@@ -1,4 +1,3 @@
-// class Node<T extends { toString(): string }> {
 export class NodeItem<T> {
     public prev?: NodeItem<T> | null;
     public data: T | null = null;

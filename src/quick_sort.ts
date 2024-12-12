@@ -23,7 +23,7 @@ class QuickSort {
 
 
 (() => {
-    const arrayToSort = new Array(5);
+    const arrayToSort = new Array(50);
     for (let i = 0; i < arrayToSort.length; i++)
         arrayToSort[i] = Math.ceil(Math.random() * arrayToSort.length);
 

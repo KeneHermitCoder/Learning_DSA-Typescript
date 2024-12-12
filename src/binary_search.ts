@@ -1,4 +1,4 @@
-import { verifyIndex, } from "./utils/verify_index";
+import { verifyIndex, } from './utils/verify_index';
 
 /**
  * 
@@ -21,18 +21,11 @@ function binarySearch(array: number[], target: number): number {
 }
 
 function recursiveBinarySearch(array: number[], target: number): boolean {
-    if (array.length < 1) {
-        console.log(`Started running a recursive binary search for ${target}...`)
-        console.log('Found target in the recursive search? ')
-        return false
-    }
+    if (array.length < 1) return false
     else {
         const midpoint = Math.floor(array.length/2);
-        if (array[midpoint] === target) {
-            console.log(`Started running a recursive binary search for ${target}...`)
-            console.log('Found target in the recursive search? ')
-            return true
-        } else
+        if (array[midpoint] === target) return true;
+        else
             if (midpoint > target)
                 return recursiveBinarySearch(array.slice(0, midpoint), target);
             else return recursiveBinarySearch(array.slice(midpoint+1), target)
