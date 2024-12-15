@@ -17,7 +17,8 @@
     "start:selection_sort": "tsc-watch --onSuccess \"node ./dist/selection_sort.js\"",
     "start:priority_queues": "tsc-watch --onSuccess \"node ./dist/priority_queues.js\"",
     "start:merge_sort_array": "tsc-watch --onSuccess \"node ./dist/merge_sort_array.js\"",
-    "start:merge_sort_linked_list": "tsc-watch --onSuccess \"node ./dist/merge_sort_linked_list.js\""
+    "start:merge_sort_linked_list": "tsc-watch --onSuccess \"node ./dist/merge_sort_linked_list.js\"",
+    "start:longest_common_prefix": "tsc-watch --onSuccess \"node ./dist/leetcode_problems/longest_common_prefix.js\""
   },
   "keywords": [
     "dsa",
