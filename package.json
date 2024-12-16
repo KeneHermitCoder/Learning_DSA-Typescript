@@ -19,6 +19,7 @@
     "start:merge_sort_array": "tsc-watch --onSuccess \"node ./dist/merge_sort_array.js\"",
     "start:two_sum": "tsc-watch --onSuccess \"node ./dist/leetcode_problems/two_sum.js\"",
     "start:merge_sort_linked_list": "tsc-watch --onSuccess \"node ./dist/merge_sort_linked_list.js\"",
+    "start:valid_parentheses": "tsc-watch --onSuccess \"node ./dist/leetcode_problems/valid_parentheses.js\"",
     "start:longest_common_prefix": "tsc-watch --onSuccess \"node ./dist/leetcode_problems/longest_common_prefix.js\""
   },
   "keywords": [
