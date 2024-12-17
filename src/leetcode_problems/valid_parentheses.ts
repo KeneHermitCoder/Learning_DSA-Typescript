@@ -32,17 +32,17 @@ import { timeInterval, } from '../utils/timeInterval';
 function isValid(s: string): boolean {
 
     const stack: Array<string> = [];
-    const characters = new Map([['(', ')'], ['[', ']'], ['{', '}']]); 
+    const characters: Record<string, string> = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
 
-    while (s.length) {
-        const stringFirstCharacter = s.charAt(0);
-        s = s.slice(1);
-        if (stack.length === 0) {
-            if (!characters.has(stringFirstCharacter)) break;
-            else stack.push(stringFirstCharacter)
-        } else {
-            if (characters.has(stringFirstCharacter)) stack.push(stringFirstCharacter);
-            else if (characters.get(stack[stack.length - 1]) === stringFirstCharacter) stack.pop()
+    for (let i = 0; i < s.length; i++) {
+        if (stack.length < 1) stack.push(s.charAt(i))
+        else {
+            if (characters[s.charAt(i)]) stack.push(s.charAt(i));
+            else if (characters[stack[stack.length - 1]] === s.charAt(i)) stack.pop();
             else break;
         }
     }
@@ -51,3 +51,5 @@ function isValid(s: string): boolean {
 }
 
 console.log(isValid('{({}({})[]({}))}()[]{}([])()[]{}()'));
+// console.log(isValid('('));
+console.log(isValid(']'));
