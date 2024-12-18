@@ -26,9 +26,6 @@
  * s consists of parentheses only '()[]{}'.
  */
 
-
-import { timeInterval, } from '../utils/timeInterval';
-
 function isValid(s: string): boolean {
 
     const stack: Array<string> = [];
@@ -38,18 +35,17 @@ function isValid(s: string): boolean {
         '{': '}'
     }
 
-    for (let i = 0; i < s.length; i++) {
-        if (stack.length < 1) stack.push(s.charAt(i))
+    for (let i = 0; i < s.length; i++)
+        if (stack.length < 1) stack.push(s[i])
         else {
-            if (characters[s.charAt(i)]) stack.push(s.charAt(i));
-            else if (characters[stack[stack.length - 1]] === s.charAt(i)) stack.pop();
+            if (characters[s[i]]) stack.push(s[i]);
+            else if (characters[stack[stack.length - 1]] === s[i]) stack.pop();
             else break;
         }
-    }
 
     return stack.length > 0? false: true;
 }
 
 console.log(isValid('{({}({})[]({}))}()[]{}([])()[]{}()'));
-// console.log(isValid('('));
+console.log(isValid('('));
 console.log(isValid(']'));
