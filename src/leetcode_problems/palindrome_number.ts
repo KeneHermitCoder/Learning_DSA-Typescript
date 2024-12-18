@@ -29,16 +29,24 @@
 // Follow up: Could you solve it without converting the integer to a string?
 
 
-function palindrome(x: number): boolean {
-    if (x < 9 && x > -9) return false;
-    let convertedNumber = x.toString();
-    console.log({ convertedNumber, })
-    const stringLength = x.length;
-    if ((stringLength)%2 === 0) {
-        if (x.slice(0, (stringLength/2)).split().reverse() !== x.slice((stringLength/2) -1, stringLength)
-    } else {}
-    return true;
+function isPalindrome(x: number): boolean {
+    // if (x >= 0 && x < 10) return true;
+    // else if (x < 0) return false;
+    // let convertedNumber = x.toString();
+    // const midpoint = Math.floor(convertedNumber.length/2);
+    // const firstHalf = convertedNumber.slice(0, midpoint+(convertedNumber.length%2 === 0? 0: 1)),
+    //       secondHalf = convertedNumber.slice(midpoint)
+    // if (firstHalf.split('').reverse().join('') === secondHalf) return true;
+    // return false;
+
+    const originalX = x;
+    let reversedX = 0;
+    while (x > 0) {
+        reversedX = reversedX * 10 + x % 10;
+        x = Math.floor(x / 10);
+    }
+    return reversedX === originalX;
 }
 
 
-console.log(palindrome(41));
+console.log(isPalindrome(3));
